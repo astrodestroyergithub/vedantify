@@ -1,986 +1,229 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" data-sect="advaita">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vedantify - The Ultimate Gateway to Vedas & Sanatana Dharma</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        vaishnava: {
-                            primary: '#ea580c', // Saffron / Orange
-                            secondary: '#c2410c',
-                            accent: '#fef3c7',
-                            dark: '#431407'
-                        },
-                        shaiva: {
-                            primary: '#0284c7', // Bhasma / Blue / Rudraksha
-                            secondary: '#0369a1',
-                            accent: '#e0f2fe',
-                            dark: '#0c4a6e'
-                        },
-                        shakta: {
-                            primary: '#db2777', // Kumkum / Red / Pink
-                            secondary: '#be185d',
-                            accent: '#fce7f3',
-                            dark: '#500724'
-                        },
-                        smarta: {
-                            primary: '#059669', // Emerald / Advaita Green
-                            secondary: '#047857',
-                            accent: '#d1fae5',
-                            dark: '#064e3b'
-                        },
-                        vedantic: {
-                            primary: '#7c3aed', // Royal Violet / Wisdom
-                            secondary: '#6d28d9',
-                            accent: '#ede9fe',
-                            dark: '#2e1065'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif']
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); }
-        ::-webkit-scrollbar-thumb { background: rgba(234, 88, 12, 0.4); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(234, 88, 12, 0.7); }
-        
-        .page-curl {
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-        }
-        .shloka-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(254,243,199,0.4));
-            backdrop-filter: blur(10px);
-        }
-        @keyframes pulse-slow {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.9; transform: scale(1.02); }
-        }
-        .animate-pulse-slow { animation: pulse-slow 4s infinite ease-in-out; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vedantify — The One-Stop Vedic Wisdom, Metacognition & Sanatana Dharma Platform</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="manifest" href="manifest.json" />
 </head>
-<body class="bg-amber-50/40 text-slate-800 font-sans antialiased min-h-screen flex flex-col transition-colors duration-500" id="bodyRoot">
+<body id="app-root-body" class="min-h-screen flex flex-col selection:bg-amber-500 selection:text-white">
 
-    <!-- Top Announcement & Quick Bar -->
-    <div id="topBanner" class="bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 text-white text-xs sm:text-sm py-2 px-4 shadow-inner flex flex-wrap justify-between items-center z-50">
-        <div class="flex items-center space-x-2 truncate">
-            <span class="bg-white/20 px-2 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider animate-pulse">Live Utsav</span>
-            <span class="truncate">🌟 Welcome to Vedantify: The World's Premier Sanatana Dharma & Vedic Knowledge Platform!</span>
+  <!-- Top Sticky Navigation & Command Header -->
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-white/85 dark:bg-stone-950/85 border-b border-amber-500/25 px-3 sm:px-6 py-2.5">
+    <div class="max-w-[1600px] mx-auto flex items-center justify-between gap-2 sm:gap-4">
+      <!-- Brand + Mobile Drawer Button -->
+      <div class="flex items-center gap-2.5">
+        <button type="button" onclick="toggleLeftSidebar()" class="lg:hidden p-2 rounded-xl v-btn-outline text-sm" aria-label="Toggle Navigation">
+          ☰
+        </button>
+        <button type="button" onclick="navigateModule('home')" class="flex items-center gap-2.5 text-left group">
+          <div class="w-9 h-9 rounded-xl v-btn-primary flex items-center justify-center text-lg shadow-md">
+            🕉️
+          </div>
+          <div>
+            <div class="font-bold text-base sm:text-lg font-serif-vedic tracking-wide leading-none">VEDANTIFY</div>
+            <div class="text-[10px] opacity-70 hidden sm:block">Vedic Wisdom • Metacognition • Sanatana Dharma</div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Global Omnisearch Bar -->
+      <div class="relative flex-1 max-w-md mx-1 sm:mx-4">
+        <div class="relative flex items-center">
+          <span class="absolute left-3 text-xs opacity-60">🔍</span>
+          <input
+            id="global-search-input"
+            type="search"
+            oninput="handleGlobalSearch(this.value)"
+            onfocus="handleGlobalSearch(this.value)"
+            placeholder="Search Shlokas, Vivekananda, Stories, Kumbh, Seva, Diwali..."
+            class="w-full pl-8 pr-3 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm border border-amber-500/35 bg-amber-50/40 dark:bg-stone-900/60 focus:outline-none focus:border-amber-500"
+          />
         </div>
-        <div class="flex items-center space-x-4 text-xs font-medium">
-            <span id="livePanchangDate" class="hidden md:inline"></span>
-            <button onclick="openModal('authModal')" class="bg-white text-orange-700 px-3 py-1 rounded-full font-bold hover:bg-amber-100 transition shadow">Sign In / Register</button>
-        </div>
+        <div id="global-search-dropdown" class="hidden absolute left-0 right-0 mt-1.5 v-card shadow-2xl max-h-96 overflow-y-auto z-50"></div>
+      </div>
+
+      <!-- Right Controls: Sect Theme Switcher, HA Pill, XP, Dark Mode, Audio, Auth, Sidepanel -->
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        <button id="api-status-pill" type="button" onclick="navigateModule('admin')" class="hidden xl:inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-500/15 text-emerald-700 border border-emerald-500/30">
+          🟢 Multi-API HA: Online
+        </button>
+
+        <select
+          id="sect-theme-select"
+          onchange="setSectTheme(this.value)"
+          aria-label="Select Sect Theme"
+          class="px-2.5 py-1.5 rounded-xl text-xs font-semibold v-btn-outline cursor-pointer"
+        >
+          <option value="advaita">☀️ Advaita (Saffron)</option>
+          <option value="shaiva">🔱 Shaivism (Indigo)</option>
+          <option value="vaishnava">🦚 Vaishnavism (Teal)</option>
+          <option value="shakta">🌺 Shaktism (Crimson)</option>
+          <option value="buddhism">🪷 Buddhism (Ochre)</option>
+        </select>
+
+        <button id="header-xp-badge" type="button" onclick="toggleRightSidepanel()" class="hidden md:inline-flex px-3 py-1.5 rounded-xl text-xs font-bold v-badge">
+          ✨ 240 Punya XP
+        </button>
+
+        <button id="audio-mute-btn" type="button" onclick="toggleAudioMute()" class="hidden sm:inline-flex px-2.5 py-1.5 rounded-xl text-xs font-semibold v-btn-outline">
+          🔔 Audio
+        </button>
+
+        <button id="dark-mode-btn" type="button" onclick="toggleDarkMode()" class="px-2.5 py-1.5 rounded-xl text-xs font-semibold v-btn-outline">
+          🌙 Night
+        </button>
+
+        <button id="header-user-btn" type="button" onclick="openAuthModal()" class="px-3 py-1.5 rounded-xl text-xs font-semibold v-btn-primary">
+          👤 Aarav
+        </button>
+
+        <button type="button" onclick="toggleRightSidepanel()" class="p-1.5 sm:px-2.5 sm:py-1.5 rounded-xl text-xs font-semibold v-btn-outline" title="Toggle Sankalpa & API Telemetry Drawer">
+          ⚡
+        </button>
+      </div>
     </div>
+  </header>
 
-    <!-- Main Navigation Bar -->
-    <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-sm border-b border-orange-100 dark:border-slate-800 transition-colors">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Brand Logo -->
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
-                <div id="brandLogoBg" class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-orange-600 to-amber-500 text-white flex items-center justify-center shadow-lg shadow-orange-500/30 transform hover:rotate-6 transition">
-                    <i data-lucide="sun" class="w-7 h-7"></i>
-                </div>
-                <div>
-                    <h1 class="text-2xl font-black tracking-tight font-serif bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent" id="brandName">Vedantify</h1>
-                    <p class="text-[10px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-semibold">Eternal Wisdom of Vedas</p>
-                </div>
-            </div>
+  <!-- Main Workspace Layout: Left Sidebar + Center Viewport + Right Sidepanel -->
+  <div class="flex-1 max-w-[1600px] w-full mx-auto flex relative">
 
-            <!-- Desktop Nav Links -->
-            <nav class="hidden xl:flex items-center space-x-1 text-sm font-medium text-slate-700 dark:text-slate-200">
-                <button onclick="switchTab('home')" class="nav-btn px-3 py-2 rounded-xl hover:bg-orange-50 dark:hover:bg-slate-800 transition active-nav" data-target="home">Home</button>
-                <button onclick="switchTab('vedas')" class="nav-btn px-3 py-2 rounded-xl hover:bg-orange-50 dark:hover:bg-slate-800 transition" data-target="vedas">Vedas & Scriptures</button>
-                <button onclick="switchTab('epics')" class="nav-btn px-3 py-2 rounded-xl hover:bg-orange-50 dark:hover:bg-slate-800 transition" data-target="epics">Epics & Shlokas</button>
-                <button onclick="switchTab('stories')" class="nav-btn px-3 py-2 rounded-xl hover:bg-orange-50 dark:hover:bg-slate-800 transition" data-target="stories">Vedic Stories</button>
-                <button onclick="switchTab('realworld')" class="nav-btn px-3 py-2 rounded-xl hover:bg-orange-50 dark:hover:bg-slate-800 transition" data-target="realworld">Real World</button>
-                <button onclick="switchTab('preachers')" class="nav-btn px-3 py-2 rounded-xl hover:bg-orange-50 dark:hover:bg-slate-800 transition" data-target="preachers">Preachers</button>
-                <button onclick="switchTab('kids')" class="nav-btn px-3 py-2 rounded-xl hover:bg-orange-50 dark:hover:bg-slate-800 transition flex items-center space-x-1 text-orange-600 font-bold"><i data-lucide="sparkles" class="w-4 h-4"></i><span>Kids Corner</span></button>
-                <button onclick="switchTab('calendar')" class="nav-btn px-3 py-2 rounded-xl hover:bg-orange-50 dark:hover:bg-slate-800 transition">Calendar</button>
-                <button onclick="switchTab('community')" class="nav-btn px-3 py-2 rounded-xl hover:bg-orange-50 dark:hover:bg-slate-800 transition">Seva</button>
-            </nav>
+    <!-- Mobile Backdrop -->
+    <div id="mobile-sidebar-backdrop" onclick="toggleLeftSidebar()" class="hidden fixed inset-0 bg-black/50 z-30 lg:hidden"></div>
 
-            <!-- Actions: Search, Sect Theme Selector, Admin, Mobile Toggle -->
-            <div class="flex items-center space-x-3">
-                <!-- Global Search Trigger -->
-                <button onclick="openModal('searchModal')" class="p-2.5 rounded-xl bg-amber-50 dark:bg-slate-800 hover:bg-amber-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition flex items-center space-x-2">
-                    <i data-lucide="search" class="w-5 h-5"></i>
-                    <span class="text-xs hidden md:inline font-medium">Search Shlokas, Vedas...</span>
-                </button>
+    <!-- Left Navigation Sidebar -->
+    <aside
+      id="left-sidebar"
+      class="fixed lg:static inset-y-0 left-0 z-40 w-64 shrink-0 v-card rounded-none lg:rounded-2xl lg:my-4 lg:ml-4 p-4 flex flex-col justify-between transition-transform duration-300 -translate-x-full lg:translate-x-0 overflow-y-auto"
+    >
+      <div class="space-y-1">
+        <div class="px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider opacity-60">Sanatana Modules</div>
+        <button type="button" data-nav-module="home" onclick="navigateModule('home')" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold v-btn-primary shadow-sm text-left">
+          <span>🏛️</span><span>Home & Sankalpa</span>
+        </button>
+        <button type="button" data-nav-module="epics" onclick="navigateModule('epics')" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-amber-500/10 transition text-left">
+          <span>📜</span><span>Epics & 3D Shlokas</span>
+        </button>
+        <button type="button" data-nav-module="stories" onclick="navigateModule('stories')" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-amber-500/10 transition text-left">
+          <span>🪔</span><span>Vedic Stories</span>
+        </button>
+        <button type="button" data-nav-module="usecases" onclick="navigateModule('usecases')" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-amber-500/10 transition text-left">
+          <span>⚖️</span><span>Real-World Use Cases</span>
+        </button>
+        <button type="button" data-nav-module="preachers" onclick="navigateModule('preachers')" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-amber-500/10 transition text-left">
+          <span>🧘‍♂️</span><span>Famous Preachers</span>
+        </button>
+        <button type="button" data-nav-module="kids" onclick="navigateModule('kids')" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-amber-500/10 transition text-left">
+          <span>🦚</span><span>Child’s Corner</span>
+        </button>
+        <button type="button" data-nav-module="spirituality" onclick="navigateModule('spirituality')" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-amber-500/10 transition text-left">
+          <span>🪷</span><span>Spirituality & Mind</span>
+        </button>
+        <button type="button" data-nav-module="quizzes" onclick="navigateModule('quizzes')" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-amber-500/10 transition text-left">
+          <span>🏹</span><span>Quizzes & Wisdom Test</span>
+        </button>
+        <button type="button" data-nav-module="blogs" onclick="navigateModule('blogs')" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-amber-500/10 transition text-left">
+          <span>✍️</span><span>Vedic Blogs</span>
+        </button>
+        <button type="button" data-nav-module="news" onclick="navigateModule('news')" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-amber-500/10 transition text-left">
+          <span>📰</span><span>Sanatana News</span>
+        </button>
+        <button type="button" data-nav-module="seva" onclick="navigateModule('seva')" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-amber-500/10 transition text-left">
+          <span>🤝</span><span>Community Seva</span>
+        </button>
+        <button type="button" data-nav-module="calendar" onclick="navigateModule('calendar')" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-amber-500/10 transition text-left">
+          <span>📅</span><span>Festival Calendar</span>
+        </button>
+        <button type="button" data-nav-module="admin" onclick="navigateModule('admin')" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium hover:bg-amber-500/10 transition text-left">
+          <span>⚙️</span><span>Admin & Multi-API HA</span>
+        </button>
+      </div>
 
-                <!-- Sect Theme Changer Dropdown -->
-                <div class="relative">
-                    <button onclick="toggleDropdown('sectDropdown')" id="sectBtn" class="p-2.5 rounded-xl bg-orange-100 dark:bg-slate-800 hover:bg-orange-200 text-orange-800 dark:text-orange-400 transition flex items-center space-x-1 font-semibold text-xs">
-                        <i data-lucide="palette" class="w-4 h-4"></i>
-                        <span id="currentSectLabel" class="hidden sm:inline">Vaishnava</span>
-                    </button>
-                    <div id="sectDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-orange-100 dark:border-slate-800 py-2 z-50">
-                        <div class="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400">Choose Tradition</div>
-                        <button onclick="setSectTheme('vaishnava', 'Vaishnava')" class="w-full text-left px-4 py-2 text-xs font-medium hover:bg-orange-50 dark:hover:bg-slate-800 flex items-center space-x-2 text-orange-700"><span class="w-3 h-3 rounded-full bg-orange-600"></span><span>Vaishnavism (Bhakti)</span></button>
-                        <button onclick="setSectTheme('shaiva', 'Shaiva')" class="w-full text-left px-4 py-2 text-xs font-medium hover:bg-sky-50 dark:hover:bg-slate-800 flex items-center space-x-2 text-sky-700"><span class="w-3 h-3 rounded-full bg-sky-600"></span><span>Shaivism (Yoga & Shiva)</span></button>
-                        <button onclick="setSectTheme('shakta', 'Shakta')" class="w-full text-left px-4 py-2 text-xs font-medium hover:bg-pink-50 dark:hover:bg-slate-800 flex items-center space-x-2 text-pink-700"><span class="w-3 h-3 rounded-full bg-pink-600"></span><span>Shaktism (Devi & Shakti)</span></button>
-                        <button onclick="setSectTheme('smarta', 'Smarta')" class="w-full text-left px-4 py-2 text-xs font-medium hover:bg-emerald-50 dark:hover:bg-slate-800 flex items-center space-x-2 text-emerald-700"><span class="w-3 h-3 rounded-full bg-emerald-600"></span><span>Smarta / Advaita</span></button>
-                        <button onclick="setSectTheme('vedantic', 'Vedantic')" class="w-full text-left px-4 py-2 text-xs font-medium hover:bg-purple-50 dark:hover:bg-slate-800 flex items-center space-x-2 text-purple-700"><span class="w-3 h-3 rounded-full bg-purple-600"></span><span>Vedantic / Universal</span></button>
-                    </div>
-                </div>
+      <div class="mt-6 p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-xs space-y-2">
+        <div class="font-bold">🔐 Account & Role</div>
+        <p class="opacity-80">Sign up, switch seeker roles, or manage saved shlokas.</p>
+        <button type="button" onclick="openAuthModal()" class="w-full v-btn-outline py-1.5 text-xs font-semibold">Sign Up / Switch Role</button>
+      </div>
+    </aside>
 
-                <!-- Admin Button -->
-                <button onclick="switchTab('admin')" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 transition" title="Admin Dashboard">
-                    <i data-lucide="shield-check" class="w-5 h-5"></i>
-                </button>
-
-                <!-- Mobile Menu Toggle -->
-                <button onclick="toggleMobileMenu()" class="xl:hidden p-2.5 rounded-xl bg-orange-50 dark:bg-slate-800 text-orange-700 dark:text-orange-400">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile Drawer -->
-        <div id="mobileMenu" class="hidden xl:hidden bg-white dark:bg-slate-900 border-b border-orange-100 dark:border-slate-800 px-4 py-4 space-y-2">
-            <button onclick="switchTab('home'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-xl font-medium hover:bg-orange-50">Home</button>
-            <button onclick="switchTab('vedas'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-xl font-medium hover:bg-orange-50">Vedas & Scriptures</button>
-            <button onclick="switchTab('epics'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-xl font-medium hover:bg-orange-50">Epics & Shlokas</button>
-            <button onclick="switchTab('stories'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-xl font-medium hover:bg-orange-50">Vedic Stories</button>
-            <button onclick="switchTab('realworld'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-xl font-medium hover:bg-orange-50">Real World Use Cases</button>
-            <button onclick="switchTab('preachers'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-xl font-medium hover:bg-orange-50">Preachers</button>
-            <button onclick="switchTab('kids'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-xl font-medium hover:bg-orange-50 text-orange-600 font-bold">Kids Corner</button>
-            <button onclick="switchTab('calendar'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-xl font-medium hover:bg-orange-50">Calendar & Planners</button>
-            <button onclick="switchTab('community'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-xl font-medium hover:bg-orange-50">Community Seva</button>
-            <button onclick="switchTab('admin'); toggleMobileMenu();" class="block w-full text-left px-4 py-2 rounded-xl font-medium hover:bg-slate-100 text-slate-700">Admin Dashboard</button>
-        </div>
-    </header>
-
-    <!-- Main Content Area -->
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
-
-        <!-- TAB 1: HOME -->
-        <section id="tab-home" class="tab-content space-y-12">
-            <!-- Hero Banner -->
-            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-500 text-white shadow-2xl p-8 sm:p-14">
-                <div class="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
-                    <i data-lucide="om" class="w-96 h-96"></i>
-                </div>
-                <div class="relative z-10 max-w-2xl space-y-6">
-                    <div class="inline-flex items-center space-x-2 bg-white/20 px-3 py-1 rounded-full text-xs font-bold tracking-wider backdrop-blur-sm">
-                        <i data-lucide="sparkles" class="w-4 h-4 text-amber-200"></i>
-                        <span>Sanatana Dharma • Higher Consciousness • Modern Living</span>
-                    </div>
-                    <h1 class="text-4xl sm:text-6xl font-black font-serif leading-tight">Rediscover the Eternal Wisdom of the Vedas</h1>
-                    <p class="text-base sm:text-lg text-amber-100 font-medium leading-relaxed">
-                        Vedantify is the world's most comprehensive digital platform bridging ancient Vedic scriptures, Shlokas, Epics, and timeless spiritual philosophy with modern daily life, mindfulness, and children's moral values.
-                    </p>
-                    <div class="flex flex-wrap gap-4 pt-2">
-                        <button onclick="switchTab('epics')" class="bg-white text-orange-700 font-bold px-8 py-4 rounded-2xl shadow-xl hover:bg-amber-50 transition transform hover:-translate-y-0.5 flex items-center space-x-2">
-                            <span>Explore Epics & Shlokas</span>
-                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                        </button>
-                        <button onclick="switchTab('kids')" class="bg-orange-900/40 border border-white/30 text-white font-bold px-8 py-4 rounded-2xl backdrop-blur-md hover:bg-orange-900/60 transition flex items-center space-x-2">
-                            <i data-lucide="award" class="w-5 h-5 text-amber-300"></i>
-                            <span>Kids Gamified Corner</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Daily Shloka Spotlight with Audio & Page Curl -->
-            <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-xl border border-orange-100 dark:border-slate-800">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center pb-6 border-b border-orange-100 dark:border-slate-800 gap-4">
-                    <div>
-                        <span class="text-xs font-bold uppercase tracking-widest text-orange-600 bg-orange-50 dark:bg-slate-800 px-3 py-1 rounded-full">Daily Vedic Shloka</span>
-                        <h2 class="text-2xl font-serif font-bold mt-2 text-slate-800 dark:text-white">Bhagavad Gita • Chapter 2, Verse 47</h2>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <button onclick="playShlokaAudio()" id="audioBtn" class="px-4 py-2 rounded-xl bg-orange-600 hover:bg-orange-700 text-white text-sm font-bold flex items-center space-x-2 shadow-lg shadow-orange-500/20 transition">
-                            <i data-lucide="volume-2" class="w-4 h-4"></i>
-                            <span>Chant Shloka</span>
-                        </button>
-                        <button onclick="rotateShlokaCard()" class="p-2 rounded-xl bg-amber-50 dark:bg-slate-800 hover:bg-amber-100 text-orange-700 transition" title="Next Shloka">
-                            <i data-lucide="refresh-cw" class="w-5 h-5"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div id="shlokaContainer" class="py-8 text-center space-y-6 page-curl">
-                    <p class="text-2xl sm:text-3xl font-serif text-orange-800 dark:text-orange-400 font-bold" id="shlokaSanskrit">
-                        कर्मण्येवाधिकारस्ते मा फलेषु कदाचन। मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥
-                    </p>
-                    <p class="text-sm italic text-slate-500 dark:text-slate-400 max-w-xl mx-auto" id="shlokaTranslit">
-                        Karmaṇyevādhikāraste mā phaleṣu kadācana | mā karmaphalaheturbhūr mā te saṅgo'stvakarmaṇi ||
-                    </p>
-                    <div class="bg-orange-50/60 dark:bg-slate-800/60 p-6 rounded-2xl max-w-3xl mx-auto border border-orange-100 dark:border-slate-700">
-                        <h4 class="text-xs font-bold uppercase tracking-wider text-orange-600 mb-1">English Meaning</h4>
-                        <p class="text-slate-700 dark:text-slate-200 text-base leading-relaxed" id="shlokaMeaning">
-                            You have a right to perform your prescribed duty, but you are not entitled to the fruits of action. Never consider yourself the cause of the results of your activities, and never be attached to not doing your duty.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Dynamic Feed Section: News, Blogs, Community Seva (Mock APIs with Fault Tolerance) -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- News Feed -->
-                <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-xl border border-orange-100 dark:border-slate-800 space-y-4">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center space-x-2">
-                            <div class="p-2 rounded-xl bg-orange-100 text-orange-700"><i data-lucide="newspaper" class="w-5 h-5"></i></div>
-                            <h3 class="font-serif font-bold text-lg">Sanatana News</h3>
-                        </div>
-                        <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full flex items-center space-x-1"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span><span>Live API</span></span>
-                    </div>
-                    <div id="newsFeedList" class="space-y-4 divide-y divide-orange-50 dark:divide-slate-800">
-                        <!-- Populated by JS -->
-                    </div>
-                </div>
-
-                <!-- Blogs Feed -->
-                <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-xl border border-orange-100 dark:border-slate-800 space-y-4">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center space-x-2">
-                            <div class="p-2 rounded-xl bg-amber-100 text-amber-700"><i data-lucide="book-open" class="w-5 h-5"></i></div>
-                            <h3 class="font-serif font-bold text-lg">Spiritual Blogs</h3>
-                        </div>
-                        <button onclick="switchTab('stories')" class="text-xs text-orange-600 font-bold hover:underline">View All</button>
-                    </div>
-                    <div id="blogsFeedList" class="space-y-4 divide-y divide-orange-50 dark:divide-slate-800">
-                        <!-- Populated by JS -->
-                    </div>
-                </div>
-
-                <!-- Community Seva Feed -->
-                <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-xl border border-orange-100 dark:border-slate-800 space-y-4">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center space-x-2">
-                            <div class="p-2 rounded-xl bg-emerald-100 text-emerald-700"><i data-lucide="heart" class="w-5 h-5"></i></div>
-                            <h3 class="font-serif font-bold text-lg">Community Seva</h3>
-                        </div>
-                        <button onclick="switchTab('community')" class="text-xs text-emerald-600 font-bold hover:underline">Join</button>
-                    </div>
-                    <div id="sevaFeedList" class="space-y-4 divide-y divide-orange-50 dark:divide-slate-800">
-                        <!-- Populated by JS -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB 2: VEDAS & SCRIPTURES -->
-        <section id="tab-vedas" class="tab-content hidden space-y-8">
-            <div class="bg-gradient-to-r from-orange-600 to-amber-600 text-white rounded-3xl p-8 shadow-xl">
-                <h2 class="text-3xl font-serif font-bold mb-2">The Four Vedas & Sacred Scriptures</h2>
-                <p class="text-orange-100 text-sm max-w-2xl">Immerse yourself in the eternal primary texts of Sanatana Dharma: Rigveda, Samaveda, Yajurveda, Atharvaveda, Upanishads, and Darshanas.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="vedasGrid">
-                <!-- Dynamic Vedas Cards -->
-            </div>
-
-            <div class="bg-white dark:bg-slate-900 rounded-3xl p-8 shadow-xl border border-orange-100 dark:border-slate-800">
-                <h3 class="text-2xl font-serif font-bold mb-4">Upanishadic Wisdom & Metacognition</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="upanishadsList"></div>
-            </div>
-        </section>
-
-        <!-- TAB 3: EPICS & SHLOKAS -->
-        <section id="tab-epics" class="tab-content hidden space-y-8">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-lg border border-orange-100 dark:border-slate-800">
-                <div>
-                    <h2 class="text-3xl font-serif font-bold">Epics & Shloka Library</h2>
-                    <p class="text-slate-500 text-sm">Explore Mahabharata, Ramayana, Srimad Bhagavatam with interactive page turns.</p>
-                </div>
-                <div class="flex space-x-2">
-                    <button onclick="filterEpics('all')" class="px-4 py-2 rounded-xl bg-orange-600 text-white text-xs font-bold">All</button>
-                    <button onclick="filterEpics('Ramayana')" class="px-4 py-2 rounded-xl bg-amber-100 text-amber-800 text-xs font-bold">Ramayana</button>
-                    <button onclick="filterEpics('Mahabharata')" class="px-4 py-2 rounded-xl bg-amber-100 text-amber-800 text-xs font-bold">Mahabharata</button>
-                    <button onclick="filterEpics('BhagavadGita')" class="px-4 py-2 rounded-xl bg-amber-100 text-amber-800 text-xs font-bold">Bhagavad Gita</button>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="epicsContainer">
-                <!-- Populated via JS -->
-            </div>
-        </section>
-
-        <!-- TAB 4: VEDIC STORIES -->
-        <section id="tab-stories" class="tab-content hidden space-y-8">
-            <div class="bg-gradient-to-r from-amber-600 to-yellow-600 text-white rounded-3xl p-8 shadow-xl">
-                <h2 class="text-3xl font-serif font-bold mb-2">Timeless Vedic & Puranic Stories</h2>
-                <p class="text-amber-100 text-sm">Parables of sages, gods, and kings that illuminate righteousness (Dharma), duty (Karma), and devotion (Bhakti).</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="storiesGrid"></div>
-        </section>
-
-        <!-- TAB 5: REAL WORLD USE CASES -->
-        <section id="tab-realworld" class="tab-content hidden space-y-8">
-            <div class="bg-gradient-to-r from-orange-700 to-red-600 text-white rounded-3xl p-8 shadow-xl">
-                <h2 class="text-3xl font-serif font-bold mb-2">Vedic Principles in Real-World Scenarios</h2>
-                <p class="text-orange-100 text-sm">How ancient wisdom solves modern corporate dilemmas, stress, mental health, leadership, and ethical choices.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="realworldGrid"></div>
-        </section>
-
-        <!-- TAB 6: FAMOUS PREACHERS -->
-        <section id="tab-preachers" class="tab-content hidden space-y-8">
-            <div class="bg-gradient-to-r from-purple-700 to-indigo-600 text-white rounded-3xl p-8 shadow-xl">
-                <h2 class="text-3xl font-serif font-bold mb-2">Lightbringers of Sanatana Dharma</h2>
-                <p class="text-purple-100 text-sm">Life stories, core teachings, and global impact of revered saints, philosophers, and avataric personalities.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="preachersGrid"></div>
-        </section>
-
-        <!-- TAB 7: KIDS CORNER & GAMIFICATION -->
-        <section id="tab-kids" class="tab-content hidden space-y-8">
-            <div class="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white rounded-3xl p-8 shadow-xl flex flex-col md:flex-row justify-between items-center gap-6">
-                <div>
-                    <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Child's Corner 🌟</span>
-                    <h2 class="text-3xl sm:text-4xl font-serif font-bold mt-2">Moral Adventures & Vedic Quests</h2>
-                    <p class="text-pink-100 text-sm mt-1">Earn badges, divine coins, and learn good values through interactive stories and fun quizzes!</p>
-                </div>
-                <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 flex items-center space-x-6">
-                    <div class="text-center">
-                        <span class="block text-2xl font-black text-amber-300" id="kidsCoins">150</span>
-                        <span class="text-xs uppercase tracking-wider">Divine Coins</span>
-                    </div>
-                    <div class="text-center">
-                        <span class="block text-2xl font-black text-emerald-300" id="kidsBadges">3</span>
-                        <span class="text-xs uppercase tracking-wider">Badges Unlocked</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Kids Interactive Mini-Games / Quiz -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-xl border border-orange-100 dark:border-slate-800 space-y-6">
-                    <h3 class="text-xl font-serif font-bold flex items-center space-x-2"><i data-lucide="help-circle" class="text-orange-600"></i><span>Daily Dharma Quiz for Kids</span></h3>
-                    <div id="kidsQuizBox" class="space-y-4">
-                        <!-- Populated by JS -->
-                    </div>
-                </div>
-
-                <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-xl border border-orange-100 dark:border-slate-800 space-y-6">
-                    <h3 class="text-xl font-serif font-bold flex items-center space-x-2"><i data-lucide="award" class="text-purple-600"></i><span>Your Trophy & Badge Room</span></h3>
-                    <div class="grid grid-cols-3 gap-4" id="badgesRoom">
-                        <div class="p-4 rounded-2xl bg-amber-50 dark:bg-slate-800 text-center space-y-2 border border-amber-200">
-                            <span class="text-3xl">🛡️</span>
-                            <h4 class="text-xs font-bold">Truth Seeker</h4>
-                        </div>
-                        <div class="p-4 rounded-2xl bg-orange-50 dark:bg-slate-800 text-center space-y-2 border border-orange-200">
-                            <span class="text-3xl">🏹</span>
-                            <h4 class="text-xs font-bold">Dharma Archer</h4>
-                        </div>
-                        <div class="p-4 rounded-2xl bg-purple-50 dark:bg-slate-800 text-center space-y-2 border border-purple-200">
-                            <span class="text-3xl">🪷</span>
-                            <h4 class="text-xs font-bold">Bhakti Yogi</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB 8: CALENDAR & PLANNERS -->
-        <section id="tab-calendar" class="tab-content hidden space-y-8">
-            <div class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-3xl p-8 shadow-xl">
-                <h2 class="text-3xl font-serif font-bold mb-2">Hindu Festival Calendar & Ritual Planner</h2>
-                <p class="text-emerald-100 text-sm">Track Ekadashi, Purnima, Navratri, Maha Shivratri, Diwali, and get custom preparation guides for every auspicious day.</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Calendar View -->
-                <div class="lg:col-span-2 bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-xl border border-orange-100 dark:border-slate-800 space-y-6">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-xl font-serif font-bold">Upcoming Festivals (2026-2027)</h3>
-                        <span class="text-xs bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full font-bold">Panchang Verified</span>
-                    </div>
-                    <div id="festivalsList" class="space-y-4">
-                        <!-- Populated by JS -->
-                    </div>
-                </div>
-
-                <!-- Personal Ritual Planner -->
-                <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-xl border border-orange-100 dark:border-slate-800 space-y-6">
-                    <h3 class="text-xl font-serif font-bold">My Ritual Planner</h3>
-                    <div class="space-y-3" id="plannerTasks">
-                        <!-- Populated by JS -->
-                    </div>
-                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
-                        <input type="text" id="newPlannerInput" placeholder="Add custom ritual/sadhana..." class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 mb-3">
-                        <button onclick="addPlannerTask()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-sm shadow-md transition">Add to Planner</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TAB 9: COMMUNITY SEVA -->
-        <section id="tab-community" class="tab-content hidden space-y-8">
-            <div class="bg-gradient-to-r from-teal-600 to-cyan-600 text-white rounded-3xl p-8 shadow-xl">
-                <h2 class="text-3xl font-serif font-bold mb-2">Global Sanatana Community Seva</h2>
-                <p class="text-teal-100 text-sm">Participate in Annadanam, Temple restoration, Gau Seva, Vedic education for underprivileged youth, and global spiritual camps.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="communityGrid"></div>
-        </section>
-
-        <!-- TAB 10: ADMIN DASHBOARD -->
-        <section id="tab-admin" class="tab-content hidden space-y-8">
-            <div class="bg-slate-900 text-white rounded-3xl p-8 shadow-xl flex justify-between items-center">
-                <div>
-                    <span class="bg-orange-600 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Restricted Area</span>
-                    <h2 class="text-3xl font-serif font-bold mt-2">Vedantify Master Admin Dashboard</h2>
-                    <p class="text-slate-400 text-sm">Manage dynamic APIs, content submissions, user moderation, and fault tolerance settings.</p>
-                </div>
-                <button onclick="openModal('adminAddModal')" class="bg-orange-600 hover:bg-orange-700 text-white px-5 py-3 rounded-2xl font-bold text-sm flex items-center space-x-2 shadow-lg transition">
-                    <i data-lucide="plus" class="w-5 h-5"></i>
-                    <span>Publish New Content</span>
-                </button>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-xl border border-slate-200 dark:border-slate-800">
-                    <span class="text-xs text-slate-400 font-bold uppercase">Total Users</span>
-                    <h3 class="text-3xl font-black mt-2 text-orange-600">48,290</h3>
-                    <p class="text-xs text-emerald-600 mt-1 font-semibold">↑ 12% this week</p>
-                </div>
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-xl border border-slate-200 dark:border-slate-800">
-                    <span class="text-xs text-slate-400 font-bold uppercase">Active Shlokas & Epics</span>
-                    <h3 class="text-3xl font-black mt-2 text-amber-600">1,420</h3>
-                    <p class="text-xs text-slate-500 mt-1">Fault tolerance: 99.9%</p>
-                </div>
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-xl border border-slate-200 dark:border-slate-800">
-                    <span class="text-xs text-slate-400 font-bold uppercase">API Nodes Healthy</span>
-                    <h3 class="text-3xl font-black mt-2 text-emerald-600">4 / 4</h3>
-                    <p class="text-xs text-emerald-600 mt-1 font-semibold">All systems nominal</p>
-                </div>
-            </div>
-
-            <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-xl border border-slate-200 dark:border-slate-800">
-                <h3 class="text-xl font-serif font-bold mb-4">Content Moderation & Database Management</h3>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm">
-                        <thead class="bg-slate-50 dark:bg-slate-800 text-slate-500 uppercase text-xs">
-                            <tr>
-                                <th class="p-4 rounded-l-xl">Title</th>
-                                <th class="p-4">Category</th>
-                                <th class="p-4">Status</th>
-                                <th class="p-4 rounded-r-xl">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="adminTableBody" class="divide-y divide-slate-100 dark:divide-slate-800">
-                            <!-- Populated by JS -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
+    <!-- Main Dynamic Module Viewport -->
+    <main class="flex-1 min-w-0 p-4 sm:p-6 lg:p-8" onclick="closeSearchDropdown()">
+      <div id="main-module-container"></div>
     </main>
 
-    <!-- Global Search Modal -->
-    <div id="searchModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-start justify-center pt-20 px-4">
-        <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden border border-orange-100 dark:border-slate-800">
-            <div class="p-4 border-b border-orange-100 dark:border-slate-800 flex items-center space-x-3">
-                <i data-lucide="search" class="w-6 h-6 text-orange-600"></i>
-                <input type="text" id="globalSearchInput" oninput="handleGlobalSearch(this.value)" placeholder="Search Vedas, Shlokas, Festivals, Stories, Preachers..." class="w-full bg-transparent text-lg focus:outline-none text-slate-800 dark:text-white">
-                <button onclick="closeModal('searchModal')" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200"><i data-lucide="x" class="w-5 h-5"></i></button>
-            </div>
-            <div id="searchResults" class="p-6 max-h-96 overflow-y-auto space-y-4">
-                <p class="text-sm text-slate-400 text-center py-8">Type anything to search across the entire Sanatana Dharma repository...</p>
-            </div>
+    <!-- Right Contextual Sidepanel (Sankalpa Tracker, Bookmarks & Multi-API HA Telemetry) -->
+    <aside
+      id="right-sidepanel"
+      class="hidden 2xl:block w-80 shrink-0 v-card my-4 mr-4 p-4 space-y-6 self-start sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto"
+    >
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-xs font-bold uppercase tracking-wider">☀️ Daily Sankalpa Checklist</h3>
+          <button type="button" onclick="toggleRightSidepanel()" class="2xl:hidden text-xs opacity-70">✕</button>
         </div>
+        <div id="sidepanel-tasks-list" class="space-y-2"></div>
+      </div>
+
+      <div>
+        <h3 class="text-xs font-bold uppercase tracking-wider mb-2">🔖 Saved Shloka Bookmarks</h3>
+        <div id="sidepanel-bookmarks-list" class="space-y-1"></div>
+      </div>
+
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-xs font-bold uppercase tracking-wider">📡 Multi-API Fault-Tolerance</h3>
+          <button type="button" onclick="triggerGlobalAPISync()" class="text-[11px] text-amber-600 font-semibold hover:underline">Sync Now</button>
+        </div>
+        <div class="flex gap-1.5 mb-2">
+          <button type="button" onclick="toggleSimulatePrimaryOutage()" class="w-full py-1.5 px-2 rounded-lg text-[11px] font-semibold v-btn-outline">
+            ⚡ Toggle Tier-1 Outage Simulation
+          </button>
+        </div>
+        <div id="sidepanel-api-logs" class="space-y-1"></div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-amber-500/20 py-6 px-4 sm:px-8 text-xs opacity-75 mt-12">
+    <div class="max-w-[1600px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div><strong>Vedantify</strong> • The One-Stop Global Platform for Vedic Wisdom, Metacognition & Sanatana Dharma</div>
+      <div class="flex flex-wrap gap-4">
+        <button type="button" onclick="navigateModule('epics')" class="hover:underline">3D Scriptures</button>
+        <button type="button" onclick="navigateModule('kids')" class="hover:underline">Bal Sanskar</button>
+        <button type="button" onclick="navigateModule('seva')" class="hover:underline">Vishwa Seva</button>
+        <button type="button" onclick="navigateModule('calendar')" class="hover:underline">Festival Planner</button>
+        <button type="button" onclick="navigateModule('admin')" class="hover:underline">Multi-API Status</button>
+      </div>
     </div>
+  </footer>
 
-    <!-- Auth Modal (Sign Up / Login) -->
-    <div id="authModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center px-4">
-        <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl w-full max-w-md p-8 relative border border-orange-100 dark:border-slate-800">
-            <button onclick="closeModal('authModal')" class="absolute top-6 right-6 p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200"><i data-lucide="x" class="w-5 h-5"></i></button>
-            <div class="text-center space-y-2 mb-6">
-                <div class="w-12 h-12 bg-orange-100 text-orange-700 rounded-2xl mx-auto flex items-center justify-center font-bold text-xl"><i data-lucide="om"></i></div>
-                <h3 class="text-2xl font-serif font-bold">Welcome to Vedantify</h3>
-                <p class="text-xs text-slate-500">Sign in or create account to save your spiritual progress & quiz scores.</p>
-            </div>
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Email or Phone</label>
-                    <input type="text" placeholder="seeker@vedantify.org" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500">
-                </div>
-                <div>
-                    <label class="block text-xs font-bold uppercase text-slate-500 mb-1">Password</label>
-                    <input type="password" placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500">
-                </div>
-                <button onclick="simulateAuth()" class="w-full py-3.5 bg-gradient-to-r from-orange-600 to-amber-600 text-white rounded-xl font-bold text-sm shadow-lg shadow-orange-500/30 hover:opacity-90 transition">Sign In / Register</button>
-            </div>
-        </div>
+  <!-- Universal Modal Dialog -->
+  <div id="universal-modal-backdrop" onclick="if(event.target===this)closeUniversalModal()" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 items-center justify-center p-4">
+    <div class="v-card max-w-2xl w-full max-h-[88vh] flex flex-col overflow-hidden shadow-2xl">
+      <div class="p-4 sm:p-5 border-b border-stone-200/60 flex items-center justify-between gap-3">
+        <h3 id="universal-modal-title" class="text-base sm:text-lg font-bold font-serif-vedic">Modal Title</h3>
+        <button type="button" onclick="closeUniversalModal()" class="px-2.5 py-1 rounded-lg v-btn-outline text-xs font-bold">✕ Close</button>
+      </div>
+      <div id="universal-modal-body" class="p-5 sm:p-6 overflow-y-auto"></div>
     </div>
+  </div>
 
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-400 mt-20 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="space-y-4">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-xl bg-orange-600 text-white flex items-center justify-center font-bold"><i data-lucide="sun"></i></div>
-                    <span class="text-xl font-black font-serif text-white">Vedantify</span>
-                </div>
-                <p class="text-xs leading-relaxed text-slate-400">
-                    The world's ultimate platform bridging ancient Vedic wisdom, Sanatana Dharma scriptures, Epics, and modern conscious living.
-                </p>
-                <p class="text-xs text-orange-500 font-semibold">Sarve Bhavantu Sukhinah 🙏</p>
-            </div>
-            <div>
-                <h4 class="text-white text-sm font-bold uppercase tracking-wider mb-4">Sacred Sections</h4>
-                <ul class="space-y-2 text-xs">
-                    <li><button onclick="switchTab('vedas')" class="hover:text-white transition">The Four Vedas</button></li>
-                    <li><button onclick="switchTab('epics')" class="hover:text-white transition">Epics & Shlokas</button></li>
-                    <li><button onclick="switchTab('stories')" class="hover:text-white transition">Vedic Stories</button></li>
-                    <li><button onclick="switchTab('realworld')" class="hover:text-white transition">Real World Use Cases</button></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-white text-sm font-bold uppercase tracking-wider mb-4">Community & Kids</h4>
-                <ul class="space-y-2 text-xs">
-                    <li><button onclick="switchTab('kids')" class="hover:text-white transition">Child's Corner & Rewards</button></li>
-                    <li><button onclick="switchTab('calendar')" class="hover:text-white transition">Hindu Festival Calendar</button></li>
-                    <li><button onclick="switchTab('community')" class="hover:text-white transition">Community Seva Portal</button></li>
-                    <li><button onclick="switchTab('preachers')" class="hover:text-white transition">Famous Preachers</button></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-white text-sm font-bold uppercase tracking-wider mb-4">Fault Tolerant Network</h4>
-                <p class="text-xs text-slate-400 mb-4">Powered by multi-API redundancy for 100% uptime of Sanatana scriptures.</p>
-                <div class="flex space-x-3">
-                    <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block" title="API Node 1 Online"></span>
-                    <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block" title="API Node 2 Online"></span>
-                    <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block" title="API Node 3 Online"></span>
-                    <span class="text-xs text-emerald-400 font-bold ml-2">All Nodes Synchronized</span>
-                </div>
-            </div>
-        </div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 border-t border-slate-800 text-center text-xs text-slate-500">
-            © 2026 Vedantify. All Rights Reserved. Crafted with devotion for Sanatana Dharma worldwide.
-        </div>
-    </footer>
+  <!-- Toast Container -->
+  <div id="toast-container" class="fixed bottom-4 right-4 z-50 space-y-2 max-w-sm"></div>
 
-    <!-- JavaScript Application Logic -->
-    <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
-
-        // Data Repository (Mock API with Fault Tolerance Fallbacks)
-        const vedantifyData = {
-            shlokas: [
-                {
-                    sanskrit: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन। मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥",
-                    translit: "Karmaṇyevādhikāraste mā phaleṣu kadācana | mā karmaphalaheturbhūr mā te saṅgo'stvakarmaṇi ||",
-                    meaning: "You have a right to perform your prescribed duty, but you are not entitled to the fruits of action. Never consider yourself the cause of the results, and never be attached to inaction.",
-                    reference: "Bhagavad Gita • 2.47"
-                },
-                {
-                    sanskrit: "असतो मा सद्गमय। तमसो मा ज्योतिर्गमय। मृत्योर्मा अमृतं गमय॥",
-                    translit: "Asato mā sadgamaya | tamaso mā jyotirgamaya | mṛtyormā amṛtaṃ gamaya ||",
-                    meaning: "Lead me from ignorance to truth, from darkness to light, from death to immortality.",
-                    reference: "Brihadaranyaka Upanishad • 1.3.28"
-                },
-                {
-                    sanskrit: "वसुधैव कुटुम्बकम्॥",
-                    translit: "Vasudhaiva Kuṭumbakam ||",
-                    meaning: "The whole world is one single family.",
-                    reference: "Maha Upanishad • 6.72"
-                }
-            ],
-            news: [
-                { title: "Grand Kumbh Mela Preparations Begin with Eco-Friendly Vedic Initiatives", date: "Oct 20, 2026", category: "Utsav" },
-                { title: "New Archaeological Discovery Unearths Ancient Vedic Observatory in Gujarat", date: "Oct 19, 2026", category: "History" },
-                { title: "Global Gita Chanting Marathon Unites 1.2 Million Youth Across 40 Nations", date: "Oct 18, 2026", category: "Global" }
-            ],
-            blogs: [
-                { title: "Decoding the Quantum Mechanics in the Vedas and Upanishads", author: "Dr. Acharya Sharma", readTime: "5 min read" },
-                { title: "Mindfulness and Meditation: What Patanjali Yoga Sutras Teach Us Today", author: "Sadhvi Ananya", readTime: "7 min read" },
-                { title: "The Science of Yajna and Atmospheric Purification", author: "Pandit Raghunath", readTime: "4 min read" }
-            ],
-            seva: [
-                { title: "Pan-India Annadanam Drive: Feed 100,000 Pilgrims", location: "Varanasi & Ayodhya", status: "Active • Join Now" },
-                { title: "Gau Seva & Shelter Modernization Initiative", location: "Mathura & Vrindavan", status: "Active • Donate" },
-                { title: "Vedic Gurukul Scholarship for Rural Children", location: "Nationwide, India", status: "Enrolling" }
-            ],
-            vedas: [
-                { title: "Rigveda", desc: "The Book of Mantra; 10,552 mantras praising cosmic forces and divine order (Rita).", hymns: "10,28 Suktas", icon: "book" },
-                { title: "Samaveda", desc: "The Book of Song; Melodic chants and musical scales foundational to Indian classical music.", hymns: "1,549 Verses", icon: "music" },
-                { title: "Yajurveda", desc: "The Book of Ritual; Prose formulas and procedures for sacred yajnas and sacrifices.", hymns: "40 Chapters", icon: "flame" },
-                { title: "Atharvaveda", desc: "The Book of Spell & Science; Practical life wisdom, Ayurveda, statecraft, and philosophy.", hymns: "730 Suktas", icon: "shield" }
-            ],
-            upanishads: [
-                { name: "Isha Upanishad", focus: "Spirituality in action and seeing the divine in all beings." },
-                { name: "Katha Upanishad", focus: "Nachiketa's dialogue with Yama on immortality and the soul." },
-                { name: "Mandukya Upanishad", focus: "Analysis of the syllable OM and states of consciousness (Waking, Dream, Deep Sleep, Turiya)." }
-            ],
-            epicsList: [
-                { title: "Ramayana • The Journey of Maryada Purushottam Rama", category: "Ramayana", desc: "The epic of righteousness, duty, ideal brotherhood, and the triumph of truth over adharma.", shloka: "यत्र यत्र रघुनाथकीर्तनं तत्र तत्र कृतमस्तकमञ्जलिम्।" },
-                { title: "Mahabharata • The Great Epic of Dharma & Karma", category: "Mahabharata", desc: "The monumental epic containing the Bhagavad Gita, exploring human psychology, politics, and divine grace.", shloka: "यतो धर्मस्ततो जयः।" },
-                { title: "Bhagavad Gita • The Song of God", category: "BhagavadGita", desc: "Dialogue between Lord Krishna and Arjuna on the battlefield of Kurukshetra resolving existential dilemmas.", shloka: "योगः कर्मसु कौशलम्।" }
-            ],
-            stories: [
-                { title: "Satyakama Jabala and the Quest for Truth", category: "Vedic Sage", desc: "How a truthful boy was accepted into Gautam Maharishi's gurukul without lineage proof." },
-                { title: "Prahlad and Holika: Unshakable Devotion", category: "Puranic", desc: "The triumph of supreme faith in Lord Narayana against demonic tyranny." },
-                { title: "Nachiketa Defeats Death", category: "Upanishad", desc: "A young boy who traded worldly boons for the ultimate knowledge of the soul." }
-            ],
-            realworld: [
-                { title: "Corporate Stress & Nishkama Karma", desc: "How detaching from obsessive result anxiety boosts productivity and mental peace in modern tech companies." },
-                { title: "Leadership Ethics from the Mahabharata", desc: "Comparing Yudhisthira and Duryodhana's leadership styles for modern boardrooms." },
-                { title: "Ahimsa and Sustainable Living", desc: "Applying ancient ecological principles to reduce carbon footprint and honor mother nature (Bhumi Devi)." }
-            ],
-            preachers: [
-                { name: "Swami Vivekananda", era: "1863–1902", desc: "Brought Vedanta to the West at Chicago in 1893, awakening India's national consciousness." },
-                { name: "Srila Prabhupada", era: "1896–1977", desc: "Founder of ISKCON, taking Bhakti yoga and the Hare Krishna movement across the globe." },
-                { name: "Adi Shankaracharya", era: "8th Century", desc: "Propounder of Advaita Vedanta, unifying the nation through four Mathas." },
-                { name: "Maharshi Ashtavakra", era: "Vedic Era", desc: "Enlightened child sage who imparted the non-dual Ashtavakra Gita to King Janaka." },
-                { name: "Saint Kabir Das", era: "15th Century", desc: "Mystic poet whose dohas dismantled ritualistic hypocrisy and celebrated inner devotion." },
-                { name: "Gautam Buddha", era: "6th Century BCE", desc: "Enlightened prince who taught the Middle Path, mindfulness, and compassion." }
-            ],
-            festivals: [
-                { name: "Maha Shivratri", date: "March 2026", desc: "Night of Shiva awakening. Fasting, night vigil, and Rudrabhishek.", action: "Keep night vigil, chant 'Om Namah Shivaya'." },
-                { name: "Sri Rama Navami", date: "March/April 2026", desc: "Appearance day of Lord Rama. Reading Ramayana and charity.", action: "Chant Ram Raksha Stotra, perform Sundarkand." },
-                { name: "Krishna Janmashtami", date: "August 2026", desc: "Appearance day of Lord Krishna. Midnight celebrations and fasting.", action: "Sing bhajans, read Bhagavad Gita Chapter 15." },
-                { name: "Deepavali (Diwali)", date: "November 2026", desc: "Festival of lights celebrating Rama's return to Ayodhya.", action: "Light diyas, worship Goddess Lakshmi, practice charity." }
-            ]
-        };
-
-        let currentShlokaIdx = 0;
-
-        // Initialize App on Load
-        window.onload = function() {
-            renderDynamicFeeds();
-            renderVedas();
-            renderEpics();
-            renderStories();
-            renderRealWorld();
-            renderPreachers();
-            renderCalendar();
-            renderAdminTable();
-            renderKidsQuiz();
-            updateLivePanchang();
-        };
-
-        function updateLivePanchang() {
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
-            document.getElementById('livePanchangDate').innerText = `📅 Vikram Samvat 2083 • ${now.toLocaleDateString('en-US', options)}`;
-        }
-
-        // Tab Navigation
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Sect Theme Switcher
-        function setSectTheme(sectKey, sectName) {
-            document.getElementById('currentSectLabel').innerText = sectName;
-            document.getElementById('sectDropdown').classList.add('hidden');
-            
-            // Update root theme styles
-            const logoBg = document.getElementById('brandLogoBg');
-            logoBg.className = `w-12 h-12 rounded-2xl text-white flex items-center justify-center shadow-lg transition transform hover:rotate-6`;
-            
-            if(sectKey === 'vaishnava') {
-                logoBg.classList.add('bg-gradient-to-tr', 'from-orange-600', 'to-amber-500');
-            } else if(sectKey === 'shaiva') {
-                logoBg.classList.add('bg-gradient-to-tr', 'from-sky-600', 'to-blue-700');
-            } else if(sectKey === 'shakta') {
-                logoBg.classList.add('bg-gradient-to-tr', 'from-pink-600', 'to-red-600');
-            } else if(sectKey === 'smarta') {
-                logoBg.classList.add('bg-gradient-to-tr', 'from-emerald-600', 'to-teal-700');
-            } else if(sectKey === 'vedantic') {
-                logoBg.classList.add('bg-gradient-to-tr', 'from-purple-600', 'to-indigo-700');
-            }
-        }
-
-        function toggleDropdown(id) {
-            const el = document.getElementById(id);
-            el.classList.toggle('hidden');
-        }
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
-        }
-
-        // Render Home Feeds
-        function renderDynamicFeeds() {
-            // News
-            document.getElementById('newsFeedList').innerHTML = vedantifyData.news.map(n => `
-                <div class="pt-3 first:pt-0 space-y-1">
-                    <span class="text-[10px] font-bold uppercase tracking-wider text-orange-600 bg-orange-50 px-2 py-0.5 rounded">${n.category} • ${n.date}</span>
-                    <h4 class="text-sm font-bold text-slate-800 dark:text-white hover:text-orange-600 cursor-pointer">${n.title}</h4>
-                </div>
-            `).join('');
-
-            // Blogs
-            document.getElementById('blogsFeedList').innerHTML = vedantifyData.blogs.map(b => `
-                <div class="pt-3 first:pt-0 space-y-1">
-                    <h4 class="text-sm font-bold text-slate-800 dark:text-white hover:text-amber-600 cursor-pointer">${b.title}</h4>
-                    <p class="text-xs text-slate-400">By ${b.author} • ${b.readTime}</p>
-                </div>
-            `).join('');
-
-            // Seva
-            document.getElementById('sevaFeedList').innerHTML = vedantifyData.seva.map(s => `
-                <div class="pt-3 first:pt-0 space-y-1">
-                    <h4 class="text-sm font-bold text-slate-800 dark:text-white">${s.title}</h4>
-                    <div class="flex justify-between items-center text-xs">
-                        <span class="text-slate-400"><i data-lucide="map-pin" class="w-3 h-3 inline"></i> ${s.location}</span>
-                        <span class="text-emerald-600 font-bold">${s.status}</span>
-                    </div>
-                </div>
-            `).join('');
-            lucide.createIcons();
-        }
-
-        // Rotate Daily Shloka
-        function rotateShlokaCard() {
-            currentShlokaIdx = (currentShlokaIdx + 1) % vedantifyData.shlokas.length;
-            const item = vedantifyData.shlokas[currentShlokaIdx];
-            
-            const container = document.getElementById('shlokaContainer');
-            container.style.transform = 'rotateY(90deg)';
-            setTimeout(() => {
-                document.getElementById('shlokaSanskrit').innerText = item.sanskrit;
-                document.getElementById('shlokaTranslit').innerText = item.translit;
-                document.getElementById('shlokaMeaning').innerText = item.meaning;
-                container.style.transform = 'rotateY(0deg)';
-            }, 300);
-        }
-
-        function playShlokaAudio() {
-            const btn = document.getElementById('audioBtn');
-            btn.innerHTML = `<i data-lucide="volume-2" class="w-4 h-4 animate-bounce"></i><span>Chanting...</span>`;
-            setTimeout(() => {
-                btn.innerHTML = `<i data-lucide="volume-2" class="w-4 h-4"></i><span>Chant Shloka</span>`;
-                lucide.createIcons();
-            }, 3000);
-            lucide.createIcons();
-        }
-
-        // Render Vedas
-        function renderVedas() {
-            document.getElementById('vedasGrid').innerHTML = vedantifyData.vedas.map(v => `
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-xl border border-orange-100 dark:border-slate-800 space-y-4 hover:shadow-2xl transition">
-                    <div class="w-12 h-12 rounded-2xl bg-orange-100 text-orange-700 flex items-center justify-center font-bold">
-                        <i data-lucide="${v.icon}"></i>
-                    </div>
-                    <h3 class="text-xl font-serif font-bold">${v.title}</h3>
-                    <p class="text-xs text-slate-500 leading-relaxed">${v.desc}</p>
-                    <span class="inline-block bg-amber-50 text-amber-800 px-3 py-1 rounded-full text-xs font-semibold">${v.hymns}</span>
-                </div>
-            `).join('');
-
-            document.getElementById('upanishadsList').innerHTML = vedantifyData.upanishads.map(u => `
-                <div class="p-6 rounded-2xl bg-orange-50/50 dark:bg-slate-800/50 border border-orange-100 dark:border-slate-700 space-y-2">
-                    <h4 class="font-serif font-bold text-orange-800 dark:text-orange-400">${u.name}</h4>
-                    <p class="text-xs text-slate-600 dark:text-slate-300">${u.focus}</p>
-                </div>
-            `).join('');
-            lucide.createIcons();
-        }
-
-        // Render Epics
-        function renderEpics(filter = 'all') {
-            const filtered = filter === 'all' ? vedantifyData.epicsList : vedantifyData.epicsList.filter(e => e.category === filter);
-            document.getElementById('epicsContainer').innerHTML = filtered.map(e => `
-                <div class="bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-xl border border-orange-100 dark:border-slate-800 space-y-6">
-                    <span class="text-xs font-bold uppercase tracking-wider text-orange-600 bg-orange-50 px-3 py-1 rounded-full">${e.category}</span>
-                    <h3 class="text-2xl font-serif font-bold">${e.title}</h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">${e.desc}</p>
-                    <div class="p-4 rounded-2xl bg-amber-50 dark:bg-slate-800 border border-amber-200">
-                        <p class="font-serif text-orange-800 dark:text-orange-300 font-bold text-center">${e.shloka}</p>
-                    </div>
-                </div>
-            `).join('');
-            lucide.createIcons();
-        }
-
-        function filterEpics(cat) {
-            renderEpics(cat);
-        }
-
-        // Render Stories
-        function renderStories() {
-            document.getElementById('storiesGrid').innerHTML = vedantifyData.stories.map(s => `
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-xl border border-orange-100 dark:border-slate-800 space-y-3">
-                    <span class="text-xs font-bold text-amber-700 bg-amber-50 px-2.5 py-1 rounded">${s.category}</span>
-                    <h3 class="text-xl font-serif font-bold">${s.title}</h3>
-                    <p class="text-xs text-slate-500 leading-relaxed">${s.desc}</p>
-                </div>
-            `).join('');
-        }
-
-        // Render Real World
-        function renderRealWorld() {
-            document.getElementById('realworldGrid').innerHTML = vedantifyData.realworld.map(r => `
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-xl border border-orange-100 dark:border-slate-800 space-y-3">
-                    <h3 class="text-xl font-serif font-bold text-orange-700">${r.title}</h3>
-                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">${r.desc}</p>
-                </div>
-            `).join('');
-        }
-
-        // Render Preachers
-        function renderPreachers() {
-            document.getElementById('preachersGrid').innerHTML = vedantifyData.preachers.map(p => `
-                <div class="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-xl border border-orange-100 dark:border-slate-800 space-y-3">
-                    <div class="flex justify-between items-center">
-                        <h3 class="text-xl font-serif font-bold">${p.name}</h3>
-                        <span class="text-xs font-semibold text-purple-600 bg-purple-50 px-2 py-0.5 rounded">${p.era}</span>
-                    </div>
-                    <p class="text-xs text-slate-500 leading-relaxed">${p.desc}</p>
-                </div>
-            `).join('');
-        }
-
-        // Render Kids Quiz
-        function renderKidsQuiz() {
-            document.getElementById('kidsQuizBox').innerHTML = `
-                <p class="text-sm font-semibold text-slate-700 dark:text-slate-200">Q: What does 'Ahimsā' mean in Vedic philosophy?</p>
-                <div class="space-y-2">
-                    <button onclick="answerQuiz(true)" class="w-full text-left p-3 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-orange-50 text-xs font-medium border border-slate-200 dark:border-slate-700">A) Non-injury and compassion to all living beings</button>
-                    <button onclick="answerQuiz(false)" class="w-full text-left p-3 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-orange-50 text-xs font-medium border border-slate-200 dark:border-slate-700">B) Chanting loudly in temples</button>
-                    <button onclick="answerQuiz(false)" class="w-full text-left p-3 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-orange-50 text-xs font-medium border border-slate-200 dark:border-slate-700">C) Fasting on full moon nights</button>
-                </div>
-            `;
-        }
-
-        function answerQuiz(isCorrect) {
-            if(isCorrect) {
-                alert('🎉 Correct! You earned 50 Divine Coins and unlocked a new badge!');
-                let coins = parseInt(document.getElementById('kidsCoins').innerText) + 50;
-                document.getElementById('kidsCoins').innerText = coins;
-            } else {
-                alert('🙏 Good try! Remember, Ahimsa means non-violence and compassion. Try again!');
-            }
-        }
-
-        // Render Calendar
-        function renderCalendar() {
-            document.getElementById('festivalsList').innerHTML = vedantifyData.festivals.map(f => `
-                <div class="p-4 rounded-2xl bg-emerald-50/50 dark:bg-slate-800 border border-emerald-100 dark:border-slate-700 space-y-2">
-                    <div class="flex justify-between items-center">
-                        <h4 class="font-serif font-bold text-emerald-800 dark:text-emerald-400 text-base">${f.name}</h4>
-                        <span class="text-xs font-semibold text-emerald-600 bg-white px-2.5 py-1 rounded-full shadow-sm">${f.date}</span>
-                    </div>
-                    <p class="text-xs text-slate-600 dark:text-slate-300">${f.desc}</p>
-                    <div class="bg-white dark:bg-slate-900 p-2.5 rounded-xl border border-emerald-200 text-xs text-slate-700 dark:text-slate-200">
-                        <strong>Recommended Sadhana:</strong> ${f.action}
-                    </div>
-                </div>
-            `).join('');
-
-            // Render Planner
-            renderPlannerTasks();
-        }
-
-        let plannerTasksData = [
-            { task: "Morning Surya Namaskar & Gayatri Mantra", done: true },
-            { task: "Read 1 Chapter of Bhagavad Gita", done: false },
-            { task: "Evening Mantra Meditation (15 mins)", done: false }
-        ];
-
-        function renderPlannerTasks() {
-            document.getElementById('plannerTasks').innerHTML = plannerTasksData.map((t, idx) => `
-                <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-800 text-xs">
-                    <label class="flex items-center space-x-3 cursor-pointer">
-                        <input type="checkbox" ${t.done ? 'checked' : ''} onchange="togglePlanner(${idx})" class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500">
-                        <span class="${t.done ? 'line-through text-slate-400' : 'font-medium text-slate-700 dark:text-slate-200'}">${t.task}</span>
-                    </label>
-                </div>
-            `).join('');
-        }
-
-        function togglePlanner(idx) {
-            plannerTasksData[idx].done = !plannerTasksData[idx].done;
-            renderPlannerTasks();
-        }
-
-        function addPlannerTask() {
-            const input = document.getElementById('newPlannerInput');
-            if(input.value.trim()) {
-                plannerTasksData.push({ task: input.value.trim(), done: false });
-                input.value = '';
-                renderPlannerTasks();
-            }
-        }
-
-        // Render Admin Table
-        function renderAdminTable() {
-            const items = [
-                { title: "Bhagavad Gita Chapter 2 Analysis", cat: "Scripture", status: "Published" },
-                { title: "Kumbh Mela 2026 Special Coverage", cat: "News", status: "Published" },
-                { title: "Patanjali Yoga Sutras Simplified", cat: "Blog", status: "Pending Review" }
-            ];
-            document.getElementById('adminTableBody').innerHTML = items.map(i => `
-                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800">
-                    <td class="p-4 font-semibold">${i.title}</td>
-                    <td class="p-4 text-slate-500">${i.cat}</td>
-                    <td class="p-4"><span class="px-2.5 py-1 rounded-full text-xs font-bold ${i.status === 'Published' ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}">${i.status}</span></td>
-                    <td class="p-4"><button onclick="alert('Content moderation action successful.')" class="text-xs text-orange-600 font-bold hover:underline">Manage</button></td>
-                </tr>
-            `).join('');
-        }
-
-        // Global Search Handler
-        function handleGlobalSearch(query) {
-            const resBox = document.getElementById('searchResults');
-            if(!query.trim()) {
-                resBox.innerHTML = `<p class="text-sm text-slate-400 text-center py-8">Type anything to search across the entire Sanatana Dharma repository...</p>`;
-                return;
-            }
-
-            const q = query.toLowerCase();
-            const matched = [];
-            
-            vedantifyData.vedas.forEach(v => { if(v.title.toLowerCase().includes(q)) matched.push({title: v.title, type: 'Veda'}) });
-            vedantifyData.epicsList.forEach(e => { if(e.title.toLowerCase().includes(q)) matched.push({title: e.title, type: 'Epic'}) });
-            vedantifyData.preachers.forEach(p => { if(p.name.toLowerCase().includes(q)) matched.push({title: p.name, type: 'Preacher'}) });
-            vedantifyData.festivals.forEach(f => { if(f.name.toLowerCase().includes(q)) matched.push({title: f.name, type: 'Festival'}) });
-
-            if(matched.length === 0) {
-                resBox.innerHTML = `<p class="text-sm text-slate-400 text-center py-8">No results found for "${query}". Try searching for Gita, Rama, Veda, or Shivratri.</p>`;
-            } else {
-                resBox.innerHTML = matched.map(m => `
-                    <div class="p-3 rounded-xl bg-orange-50/50 dark:bg-slate-800 flex justify-between items-center cursor-pointer hover:bg-orange-100" onclick="closeModal('searchModal')">
-                        <span class="font-bold text-sm text-slate-800 dark:text-white">${m.title}</span>
-                        <span class="text-xs px-2 py-0.5 rounded bg-orange-600 text-white">${m.type}</span>
-                    </div>
-                `).join('');
-            }
-        }
-
-        // Modal Controls
-        function openModal(id) {
-            document.getElementById(id).classList.remove('hidden');
-        }
-
-        function closeModal(id) {
-            document.getElementById(id).classList.add('hidden');
-        }
-
-        function simulateAuth() {
-            alert('🌟 Successfully signed in to Vedantify! Your spiritual progress is now synced.');
-            closeModal('authModal');
-        }
-    </script>
+  <script>
+window.VEDANTIFY_HERO_IMG = "assets/hero-ashram.jpg";
+window.VEDANTIFY_EPICS_IMG = "assets/epics-manuscript.jpg";
+window.VEDANTIFY_KIDS_IMG = "assets/kids-banyan.jpg";
+</script>
+<script src="js/data.js"></script>
+<script src="js/api-engine.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>

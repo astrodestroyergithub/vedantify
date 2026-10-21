@@ -1,0 +1,9 @@
+{
+  "name": "Vedantify — Vedic Wisdom & Metacognition Platform",
+  "short_name": "Vedantify",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#fffdf7",
+  "theme_color": "#d97706",
+  "description": "Re-dive into the rich world of the Vedas, Upanishads, Epics, Metacognition, Bal Sanskar, and Vishwa Seva."
+}

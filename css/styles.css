@@ -1,0 +1,236 @@
+/* Vedantify - Custom Theme Engine, 3D Book Flip, Sacred Geometry & Responsive Polish */
+:root,
+[data-sect="advaita"] {
+  --v-primary: #d97706;
+  --v-primary-dark: #b45309;
+  --v-primary-light: #fef3c7;
+  --v-accent: #92400e;
+  --v-glow: rgba(217, 119, 6, 0.28);
+  --v-bg: #fffdf7;
+  --v-surface: #ffffff;
+  --v-surface-alt: #fef9ec;
+  --v-text: #1c1917;
+  --v-text-muted: #57534e;
+  --v-border: #fde68a;
+  --v-gradient: linear-gradient(135deg, #d97706 0%, #b45309 50%, #78350f 100%);
+  --v-sect-label: "Advaita Vedanta • Saffron & Gold";
+}
+
+[data-sect="shaiva"] {
+  --v-primary: #4f46e5;
+  --v-primary-dark: #3730a3;
+  --v-primary-light: #e0e7ff;
+  --v-accent: #c2410c;
+  --v-glow: rgba(79, 70, 229, 0.28);
+  --v-bg: #f8fafc;
+  --v-surface: #ffffff;
+  --v-surface-alt: #f1f5f9;
+  --v-text: #0f172a;
+  --v-text-muted: #475569;
+  --v-border: #cbd5e1;
+  --v-gradient: linear-gradient(135deg, #312e81 0%, #4f46e5 55%, #b45309 100%);
+  --v-sect-label: "Shaivism • Vibhuti Ash & Neelkanth Indigo";
+}
+
+[data-sect="vaishnava"] {
+  --v-primary: #0d9488;
+  --v-primary-dark: #0f766e;
+  --v-primary-light: #ccfbf1;
+  --v-accent: #ca8a04;
+  --v-glow: rgba(13, 148, 136, 0.28);
+  --v-bg: #f4fbf9;
+  --v-surface: #ffffff;
+  --v-surface-alt: #e6f7f4;
+  --v-text: #042f2e;
+  --v-text-muted: #335c57;
+  --v-border: #99f6e4;
+  --v-gradient: linear-gradient(135deg, #0f766e 0%, #0d9488 55%, #eab308 100%);
+  --v-sect-label: "Vaishnavism • Peacock Teal & Pitambara Gold";
+}
+
+[data-sect="shakta"] {
+  --v-primary: #e11d48;
+  --v-primary-dark: #be123c;
+  --v-primary-light: #ffe4e6;
+  --v-accent: #d97706;
+  --v-glow: rgba(225, 29, 72, 0.28);
+  --v-bg: #fff8f9;
+  --v-surface: #ffffff;
+  --v-surface-alt: #fff0f3;
+  --v-text: #3b0714;
+  --v-text-muted: #6b2135;
+  --v-border: #fecdd3;
+  --v-gradient: linear-gradient(135deg, #9f1239 0%, #e11d48 55%, #d97706 100%);
+  --v-sect-label: "Shaktism • Kumkum Crimson & Devi Gold";
+}
+
+[data-sect="buddhism"] {
+  --v-primary: #ca8a04;
+  --v-primary-dark: #a16207;
+  --v-primary-light: #fef9c3;
+  --v-accent: #3f6212;
+  --v-glow: rgba(202, 138, 4, 0.28);
+  --v-bg: #fcfbf4;
+  --v-surface: #ffffff;
+  --v-surface-alt: #f5f3e6;
+  --v-text: #1c1917;
+  --v-text-muted: #57534e;
+  --v-border: #fde047;
+  --v-gradient: linear-gradient(135deg, #854d0e 0%, #ca8a04 55%, #4d7c0f 100%);
+  --v-sect-label: "Sramana & Buddhism • Bodhi Ochre & Lotus Sage";
+}
+
+html.dark-mode {
+  --v-bg: #0c0a09;
+  --v-surface: #181512;
+  --v-surface-alt: #231f1b;
+  --v-text: #f5f5f4;
+  --v-text-muted: #a8a29e;
+  --v-border: #38322c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--v-bg);
+  color: var(--v-text);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.font-serif-vedic {
+  font-family: 'Cinzel', 'Playfair Display', Georgia, serif;
+}
+
+.font-sanskrit {
+  font-family: 'Noto Serif Devanagari', 'Mangal', Georgia, serif;
+}
+
+.v-card {
+  background-color: var(--v-surface);
+  border: 1px solid var(--v-border);
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.v-card:hover {
+  border-color: var(--v-primary);
+  box-shadow: 0 10px 28px -4px var(--v-glow);
+}
+
+.v-btn-primary {
+  background: var(--v-gradient);
+  color: #ffffff;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.v-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -2px var(--v-glow);
+  opacity: 0.96;
+}
+
+.v-btn-outline {
+  background-color: var(--v-surface-alt);
+  color: var(--v-text);
+  border: 1px solid var(--v-border);
+  border-radius: 0.75rem;
+  font-weight: 500;
+  transition: all 0.18s ease;
+}
+
+.v-btn-outline:hover {
+  border-color: var(--v-primary);
+  background-color: var(--v-primary-light);
+  color: #1c1917;
+}
+
+.v-badge {
+  background-color: var(--v-primary-light);
+  color: var(--v-primary-dark);
+  border: 1px solid var(--v-border);
+}
+
+html.dark-mode .v-badge {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #fcd34d;
+}
+
+/* 3D Page Turning Book Animation */
+.book-stage {
+  perspective: 1800px;
+}
+
+.book-spread {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+  background: linear-gradient(90deg, #fdf6e3 0%, #fffdf7 48%, #e6d5b8 50%, #fffdf7 52%, #fdf6e3 100%);
+  color: #29180b;
+  border: 2px solid #d4b483;
+  box-shadow: 0 22px 45px -12px rgba(41, 24, 11, 0.35), inset 0 0 40px rgba(212, 180, 131, 0.35);
+}
+
+html.dark-mode .book-spread {
+  background: linear-gradient(90deg, #1f1914 0%, #272019 48%, #120e0a 50%, #272019 52%, #1f1914 100%);
+  color: #f5ebe1;
+  border-color: #5c4528;
+  box-shadow: 0 22px 45px -12px rgba(0, 0, 0, 0.7), inset 0 0 40px rgba(92, 69, 40, 0.28);
+}
+
+.book-spread.flip-next {
+  animation: pageFlipNext 0.62s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.book-spread.flip-prev {
+  animation: pageFlipPrev 0.62s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes pageFlipNext {
+  0% { transform: rotateY(0deg) scale(1); }
+  45% { transform: rotateY(-16deg) scale(0.97) translateX(-8px); box-shadow: 28px 22px 50px rgba(0,0,0,0.4); }
+  100% { transform: rotateY(0deg) scale(1); }
+}
+
+@keyframes pageFlipPrev {
+  0% { transform: rotateY(0deg) scale(1); }
+  45% { transform: rotateY(16deg) scale(0.97) translateX(8px); box-shadow: -28px 22px 50px rgba(0,0,0,0.4); }
+  100% { transform: rotateY(0deg) scale(1); }
+}
+
+/* Sacred Mandala Slow Rotation */
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.mandala-spin {
+  animation: spinSlow 48s linear infinite;
+}
+
+/* Pranayama Breathing Circle */
+.breath-orb {
+  transition: transform 1s ease-in-out, box-shadow 1s ease-in-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(150, 140, 130, 0.35);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--v-primary);
+}
